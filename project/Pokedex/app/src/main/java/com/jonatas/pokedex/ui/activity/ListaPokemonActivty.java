@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ListaPokemonActivityBinding;
+import com.jonatas.pokedex.dto.PokemonDTO;
 import com.jonatas.pokedex.model.Pokemon;
 import com.jonatas.pokedex.ui.adapter.PokemonAdapter;
 
@@ -19,6 +20,7 @@ public class ListaPokemonActivty extends AppCompatActivity {
     ListaPokemonActivityBinding mBinding;
     List<Pokemon> mTodosPokemons =  new ArrayList<>();;
     PokemonAdapter mAdapter;
+    List<PokemonDTO> mPokemonsDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +31,34 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
         criaPokemons();
 
-        configuraRecyclerView(mTodosPokemons);
+        mPokemonsDTO = obterPokemons(mTodosPokemons);
 
+        configuraRecyclerView(mPokemonsDTO);
+
+    }
+
+    private List<PokemonDTO> obterPokemons(List<Pokemon> mTodosPokemons) {
+
+        List<PokemonDTO> pokemons = new ArrayList<>();
+
+
+        for(int i = 0;i < mTodosPokemons.size();i++)
+        {
+            PokemonDTO pokemonItem = new PokemonDTO();
+            Pokemon pokemon = mTodosPokemons.get(i);
+            pokemonItem.codigo = pokemon.getCodigo();
+            pokemonItem.nome = pokemon.getNome();
+            pokemons.add(pokemonItem);
+        }
+        return pokemons;
     }
 
     private void criaPokemons() {
         Pokemon charmander = new Pokemon(001,"Charmander");
         Pokemon bulbasauro = new Pokemon(002,"Bulbasauro");
         Pokemon squirtle = new Pokemon(003,"Squirtle");
-        Pokemon pikachu = new Pokemon(003,"pikachu");
-        Pokemon miu = new Pokemon(003,"miu");
+        Pokemon pikachu = new Pokemon(003,"Pikachu");
+        Pokemon miu = new Pokemon(003,"Miu");
 
         mTodosPokemons.add(charmander);
         mTodosPokemons.add(bulbasauro);
@@ -48,14 +68,14 @@ public class ListaPokemonActivty extends AppCompatActivity {
     }
 
 
-    private void configuraRecyclerView(List<Pokemon> todosPokemons) {
+    private void configuraRecyclerView(List<PokemonDTO> todosPokemons) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         configuracaoPadraoDaLista(linearLayoutManager);
         popularListaDePokemon(todosPokemons);
 
     }
 
-    private void popularListaDePokemon(List<Pokemon> todosPokemons) {
+    private void popularListaDePokemon(List<PokemonDTO> todosPokemons) {
         mAdapter = new PokemonAdapter(todosPokemons,this);
         mBinding.rvPokemon.setAdapter(mAdapter);
 

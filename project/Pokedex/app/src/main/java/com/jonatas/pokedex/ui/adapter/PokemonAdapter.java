@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ItemListaPokemonBinding;
 import com.jonatas.pokedex.dto.PokemonDTO;
-import com.jonatas.pokedex.model.Pokemon;
 import com.jonatas.pokedex.ui.activity.DetalhePokemonActivity;
 import com.jonatas.pokedex.ui.activity.ListaPokemonActivty;
 
@@ -19,10 +18,10 @@ import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
-    private List<Pokemon> mListaDePokemon;
+    private List<PokemonDTO> mListaDePokemon;
     private ListaPokemonActivty mContext;
 
-    public PokemonAdapter(List<Pokemon> mListaDePokemon, ListaPokemonActivty mContext) {
+    public PokemonAdapter(List<PokemonDTO> mListaDePokemon, ListaPokemonActivty mContext) {
         this.mListaDePokemon = mListaDePokemon;
         this.mContext = mContext;
     }
@@ -40,12 +39,13 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
-        final Pokemon pokemon = mListaDePokemon.get(position);
+        final PokemonDTO pokemon = mListaDePokemon.get(position);
         holder.getViewDataBinding().setPokemon(pokemon);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetalhePokemonActivity.class);
+               // intent.putExtra("chave_pokemon",pokemon);
                 mContext.startActivity(intent);
             }
         });
