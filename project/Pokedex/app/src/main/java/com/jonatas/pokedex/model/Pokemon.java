@@ -1,9 +1,10 @@
 package com.jonatas.pokedex.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Pokemon {
-    private int codigo;
+public class Pokemon implements Serializable {
+    private long codigo;
     private String nome;
     private int hp;
     private int ataque;
@@ -17,7 +18,7 @@ public class Pokemon {
         this.nome = nomePokemon;
     }
 
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
@@ -31,7 +32,7 @@ public class Pokemon {
 
     public String obterCodigo()
     {
-        return String.valueOf(codigo);
+        return "N° " + codigo;
     }
 
     public void setNome(String nome) {
