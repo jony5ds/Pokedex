@@ -1,6 +1,7 @@
 package com.jonatas.pokedex.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -35,6 +36,19 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
         configuraRecyclerView(mPokemonsDTO);
 
+        mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
     }
 
     private List<PokemonDTO> obterPokemons(List<Pokemon> mTodosPokemons) {
@@ -48,6 +62,7 @@ public class ListaPokemonActivty extends AppCompatActivity {
             Pokemon pokemon = mTodosPokemons.get(i);
             pokemonItem.codigo = pokemon.getCodigo();
             pokemonItem.nome = pokemon.getNome();
+            pokemonItem.numero = pokemon.obterCodigo();
             pokemons.add(pokemonItem);
         }
         return pokemons;
@@ -57,8 +72,8 @@ public class ListaPokemonActivty extends AppCompatActivity {
         Pokemon charmander = new Pokemon(001,"Charmander");
         Pokemon bulbasauro = new Pokemon(002,"Bulbasauro");
         Pokemon squirtle = new Pokemon(003,"Squirtle");
-        Pokemon pikachu = new Pokemon(003,"Pikachu");
-        Pokemon miu = new Pokemon(003,"Miu");
+        Pokemon pikachu = new Pokemon(004,"Pikachu");
+        Pokemon miu = new Pokemon(005,"Miu");
 
         mTodosPokemons.add(charmander);
         mTodosPokemons.add(bulbasauro);

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class PokemonDTO {
     public String nome;
+    public String numero;
     public long codigo;
     public int hp;
     public int ataque;
