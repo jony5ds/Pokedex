@@ -19,7 +19,7 @@ import java.util.List;
 public class ListaPokemonActivty extends AppCompatActivity {
 
     ListaPokemonActivityBinding mBinding;
-    List<Pokemon> mTodosPokemons =  new ArrayList<>();;
+    List<Pokemon> mTodosPokemons =  new ArrayList<>();
     PokemonAdapter mAdapter;
     List<PokemonDTO> mPokemonsDTO;
 
@@ -69,11 +69,11 @@ public class ListaPokemonActivty extends AppCompatActivity {
     }
 
     private void criaPokemons() {
-        Pokemon charmander = new Pokemon(001,"Charmander");
-        Pokemon bulbasauro = new Pokemon(002,"Bulbasauro");
-        Pokemon squirtle = new Pokemon(003,"Squirtle");
-        Pokemon pikachu = new Pokemon(004,"Pikachu");
-        Pokemon miu = new Pokemon(005,"Miu");
+        Pokemon charmander = new Pokemon(001,"Charmander").create();
+        Pokemon bulbasauro = new Pokemon(002,"Bulbasauro").create();
+        Pokemon squirtle = new Pokemon(003,"Squirtle").create();
+        Pokemon pikachu = new Pokemon(004,"Pikachu").create();
+        Pokemon miu = new Pokemon(005,"Miu").create();
 
         mTodosPokemons.add(charmander);
         mTodosPokemons.add(bulbasauro);
