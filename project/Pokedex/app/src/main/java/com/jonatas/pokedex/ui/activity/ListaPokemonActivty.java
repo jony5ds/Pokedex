@@ -32,7 +32,7 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
         criaPokemons();
 
-        mPokemonsDTO = obterPokemons(mTodosPokemons);
+        mPokemonsDTO = obterPokemons();
 
         configuraRecyclerView(mPokemonsDTO);
 
@@ -51,12 +51,11 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
     }
 
-    private List<PokemonDTO> obterPokemons(List<Pokemon> mTodosPokemons) {
+    private List<PokemonDTO> obterPokemons() {
 
         List<PokemonDTO> pokemons = new ArrayList<>();
 
-
-        for(int i = 0;i < mTodosPokemons.size();i++)
+        /*for(int i = 0;i < mTodosPokemons.size();i++)
         {
             PokemonDTO pokemonItem = new PokemonDTO();
             Pokemon pokemon = mTodosPokemons.get(i);
@@ -64,7 +63,13 @@ public class ListaPokemonActivty extends AppCompatActivity {
             pokemonItem.nome = pokemon.getNome();
             pokemonItem.numero = pokemon.obterCodigo();
             pokemons.add(pokemonItem);
-        }
+        }*/
+
+        PokemonDTO pikachu = new PokemonDTO(1,"Pikachu").create();
+        PokemonDTO charmander = new PokemonDTO(2,"Charmander").create();
+
+        pokemons.add(pikachu);
+        pokemons.add(charmander);
         return pokemons;
     }
 

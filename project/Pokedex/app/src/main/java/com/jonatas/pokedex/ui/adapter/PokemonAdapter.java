@@ -78,7 +78,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
                 {
                     if (item.nome.toLowerCase().contains(filtroPadrao)  ){
                         listaFiltrada.add(item);
-                    }else if (item.numero.toLowerCase().contains(filtroPadrao))
+                    }else if (item.getCodigo().toLowerCase().contains(filtroPadrao))
                     {
                         listaFiltrada.add(item);
                     }

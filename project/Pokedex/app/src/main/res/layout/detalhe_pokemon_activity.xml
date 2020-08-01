@@ -40,7 +40,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/pokemon_imagem"
-                android:text="@{pokemon.numero}"
+                android:text="@{pokemon.codigo}"
                 android:textSize="18sp"
                 tools:text="N° 003" />
 
@@ -197,16 +197,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_status"
-            android:layout_marginTop="24dp"
-            android:padding="8dp">
+            android:layout_marginTop="24dp">
 
-
-            <TextView
-                android:id="@+id/habilidade_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Habilidades"
-                android:textSize="28sp" />
 
             <ListView
                 android:id="@+id/pokemon_list_habilidades"
@@ -214,6 +206,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/habilidade_title"
                 android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/habilidade_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Habilidades"
+                android:textSize="28sp" />
 
 
         </RelativeLayout>
