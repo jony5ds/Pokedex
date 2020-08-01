@@ -85,6 +85,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="24dp"
                         android:layout_toRightOf="@id/hp_title"
+                        android:text="@{pokemon.hp}"
                         tools:text="80" />
 
                     <TextView
@@ -102,6 +103,7 @@
                         android:layout_below="@id/hp_title"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
+                        android:text="@{pokemon.ataque}"
                         android:layout_toRightOf="@id/atack_title"
                         tools:text="80" />
 
@@ -123,6 +125,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="24dp"
                         android:layout_toRightOf="@id/defesa_title"
+                        android:text="@{pokemon.defesa}"
                         tools:text="35" />
 
                     <TextView
@@ -144,6 +147,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_toRightOf="@id/velocidade_title"
+                        android:text="@{pokemon.velocidade}"
                         tools:text="60" />
 
                     <TextView
@@ -164,6 +168,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="24dp"
                         android:layout_toRightOf="@id/ataque_especial_title"
+                        android:text="@{pokemon.ataqueEspecial}"
                         tools:text="Investida" />
 
                     <TextView
@@ -184,6 +189,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_toRightOf="@id/ataque_especial_title"
+                        android:text="@{pokemon.defesaEspecial}"
                         tools:text="Bloqueio" />
 
                 </RelativeLayout>

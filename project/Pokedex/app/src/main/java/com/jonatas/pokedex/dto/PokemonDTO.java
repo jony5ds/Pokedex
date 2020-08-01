@@ -32,6 +32,36 @@ public class PokemonDTO implements Serializable {
         return String.valueOf(codigo);
     }
 
+    public String getHp()
+    {
+        return String.valueOf(hp);
+    }
+
+    public String getAtaque()
+    {
+        return String.valueOf(ataque);
+    }
+
+    public String getDefesa()
+    {
+        return String.valueOf(defesa);
+    }
+
+    public String getVelocidade()
+    {
+        return String.valueOf(velocidade);
+    }
+
+    public String getAtaqueEspecial()
+    {
+        return String.valueOf(ataqueEspecial);
+    }
+
+    public String getDefesaEspecial()
+    {
+        return String.valueOf(defesaEspecial);
+    }
+
     public PokemonDTO create()
     {
         evolucoes = new ArrayList<>();
@@ -55,6 +85,8 @@ public class PokemonDTO implements Serializable {
 
         return this;
     }
+
+
 
 
 
