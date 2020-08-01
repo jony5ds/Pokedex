@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+        
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp">
 
         <RelativeLayout
-            android:id="@+id/cabecalho"
+            android:id="@+id/layout_cabecalho"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -24,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/pokemon_imagem"
-                android:textSize="24sp"
                 android:text="@{pokemon.nome}"
+                android:textSize="24sp"
                 tools:text="Charmander" />
 
             <TextView
@@ -36,18 +40,240 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/pokemon_imagem"
+                android:text="@{pokemon.numero}"
                 android:textSize="18sp"
-                android:text="@{pokemon.obterCodigo()}"
                 tools:text="N° 003" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_cabecalho"
+            android:layout_marginTop="24dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/status_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textSize="28sp" />
+
+                    <TextView
+                        android:id="@+id/hp_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginTop="24dp"
+                        android:text="HP" />
+
+                    <TextView
+                        android:id="@+id/pokemon_hp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@id/hp_title"
+                        tools:text="80" />
+
+                    <TextView
+                        android:id="@+id/atack_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hp_title"
+                        android:layout_marginTop="8dp"
+                        android:text="Atk" />
+
+                    <TextView
+                        android:id="@+id/pokemon_ataque"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hp_title"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/atack_title"
+                        tools:text="80" />
+
+                    <TextView
+                        android:id="@+id/defesa_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@id/pokemon_hp"
+                        android:text="Def" />
+
+                    <TextView
+                        android:id="@+id/pokemon_defesa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@id/defesa_title"
+                        tools:text="35" />
+
+                    <TextView
+                        android:id="@+id/velocidade_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/defesa_title"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_toRightOf="@id/pokemon_hp"
+                        android:text="Speed" />
+
+                    <TextView
+                        android:id="@+id/pokemon_velocidade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/defesa_title"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/velocidade_title"
+                        tools:text="60" />
+
+                    <TextView
+                        android:id="@+id/ataque_especial_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@id/pokemon_defesa"
+                        android:text="Atk Especial" />
+
+                    <TextView
+                        android:id="@+id/pokemon_ataque_especial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/status_title"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@id/ataque_especial_title"
+                        tools:text="Investida" />
+
+                    <TextView
+                        android:id="@+id/defesa_especial_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ataque_especial_title"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/pokemon_defesa"
+                        android:text="Def Especial" />
+
+                    <TextView
+                        android:id="@+id/pokemon_defesa_especial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pokemon_ataque_especial"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/ataque_especial_title"
+                        tools:text="Bloqueio" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_habilidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_status"
+            android:layout_marginTop="24dp"
+            android:padding="8dp">
+
+
+            <TextView
+                android:id="@+id/habilidade_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Habilidades"
+                android:textSize="28sp" />
+
+            <ListView
+                android:id="@+id/pokemon_list_habilidades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/habilidade_title"
+                android:layout_marginTop="24dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_habilidades"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/tipos_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipos"
+                android:textSize="28sp" />
+
+            <ListView
+                android:id="@+id/pokemon_list_tipos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tipos_title"
+                android:layout_marginTop="24dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_evolucoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_tipo"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/evolucoes_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evoluções"
+                android:textSize="28sp" />
+
+            <ListView
+                android:id="@+id/pokemon_list_evolucoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/evolucoes_title"
+                android:layout_marginTop="24dp" />
+
+
 
         </RelativeLayout>
 
     </RelativeLayout>
 
+    </ScrollView>
+
     <data>
 
         <variable
             name="pokemon"
-            type="com.jonatas.pokedex.model.Pokemon" />
+            type="com.jonatas.pokedex.dto.PokemonDTO" />
     </data>
+
 </layout>
