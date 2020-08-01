@@ -1,14 +1,16 @@
 package com.jonatas.pokedex.model;
 
-public class Habilidades {
+import java.io.Serializable;
+
+public class Habilidade implements Serializable {
     private String nome;
     private String descricao;
 
-    public Habilidades(String nome) {
+    public Habilidade(String nome) {
         this.nome = nome;
     }
 
-    public Habilidades(String nome, String descricao) {
+    public Habilidade(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -27,5 +29,10 @@ public class Habilidades {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+
+    @Override public String toString() {
+        return "Habilidade: " + nome;
     }
 }
