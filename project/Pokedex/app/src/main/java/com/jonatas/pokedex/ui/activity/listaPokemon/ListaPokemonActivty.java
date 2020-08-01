@@ -22,7 +22,7 @@ import java.util.List;
 public class ListaPokemonActivty extends AppCompatActivity {
 
     ListaPokemonActivityBinding mBinding;
-    List<Pokemon> mTodosPokemons =  new ArrayList<>();
+    List<Pokemon> mTodosPokemons = new ArrayList<>();
     PokemonAdapter mAdapter;
     List<PokemonDTO> mPokemonsDTO;
 
@@ -38,6 +38,13 @@ public class ListaPokemonActivty extends AppCompatActivity {
         mPokemonsDTO = obterPokemons();
 
         configuraRecyclerView(mPokemonsDTO);
+
+        mBinding.searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popularListaDePokemon(mPokemonsDTO);
+            }
+        });
 
         mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -68,9 +75,9 @@ public class ListaPokemonActivty extends AppCompatActivity {
             pokemons.add(pokemonItem);
         }*/
 
-        PokemonDTO pikachu = new PokemonDTO(1,"Pikachu").create();
+        PokemonDTO pikachu = new PokemonDTO(1, "Pikachu").create();
         pikachu.tipos.add(new Tipo("trovao"));
-        PokemonDTO charmander = new PokemonDTO(2,"Charmander").create();
+        PokemonDTO charmander = new PokemonDTO(2, "Charmander").create();
         charmander.tipos.add(new Tipo("Fogo"));
 
         pokemons.add(pikachu);
@@ -79,11 +86,11 @@ public class ListaPokemonActivty extends AppCompatActivity {
     }
 
     private void criaPokemons() {
-        Pokemon charmander = new Pokemon(001,"Charmander").create();
-        Pokemon bulbasauro = new Pokemon(002,"Bulbasauro").create();
-        Pokemon squirtle = new Pokemon(003,"Squirtle").create();
-        Pokemon pikachu = new Pokemon(004,"Pikachu").create();
-        Pokemon miu = new Pokemon(005,"Miu").create();
+        Pokemon charmander = new Pokemon(001, "Charmander").create();
+        Pokemon bulbasauro = new Pokemon(002, "Bulbasauro").create();
+        Pokemon squirtle = new Pokemon(003, "Squirtle").create();
+        Pokemon pikachu = new Pokemon(004, "Pikachu").create();
+        Pokemon miu = new Pokemon(005, "Miu").create();
 
         mTodosPokemons.add(charmander);
         mTodosPokemons.add(bulbasauro);
@@ -100,11 +107,6 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
     }
 
-    private void popularListaDePokemon(List<PokemonDTO> todosPokemons) {
-        mAdapter = new PokemonAdapter(todosPokemons,this);
-        mBinding.rvPokemon.setAdapter(mAdapter);
-
-    }
 
     private void configuracaoPadraoDaLista(LinearLayoutManager linearLayoutManager) {
         mBinding.rvPokemon.setHasFixedSize(true);
@@ -121,6 +123,7 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
         List<PokemonDTO> pokemonPorTipo = new ArrayList<>();
         if (tipoRecebido != null) {
+            mBinding.searchView.setVisibility(View.GONE);
             for (PokemonDTO pokemonTipo : mPokemonsDTO) {
                 for (int i = 0; i < pokemonTipo.tipos.size(); i++) {
                     if (pokemonTipo.tipos.get(i).getNome().equals(tipoRecebido)) {
@@ -128,7 +131,16 @@ public class ListaPokemonActivty extends AppCompatActivity {
                     }
                 }
             }
-            configuraRecyclerView(pokemonPorTipo);
+
+            popularListaDePokemon(pokemonPorTipo);
+        } else {
+            mBinding.searchView.setVisibility(View.VISIBLE);
         }
     }
+
+    private void popularListaDePokemon(List<PokemonDTO> todosPokemons) {
+        mAdapter = new PokemonAdapter(todosPokemons, this);
+        mBinding.rvPokemon.setAdapter(mAdapter);
+    }
+
 }

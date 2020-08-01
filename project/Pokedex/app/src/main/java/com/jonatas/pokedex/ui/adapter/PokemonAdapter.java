@@ -32,6 +32,15 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
         this.mContext = mContext;
     }
 
+    public PokemonAdapter(List<PokemonDTO> pokemonsPorTipo,
+                          List<PokemonDTO> todosPokemons,
+                          ListaPokemonActivty listaPokemonActivty) {
+
+        this.mListaDePokemon = pokemonsPorTipo;
+        mListaDePokemonFull = todosPokemons;
+        this.mContext = mContext;
+    }
+
     @NonNull
     @Override
     public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,16 +54,16 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
-        final PokemonDTO pokemon = mListaDePokemon.get(position);
-        holder.getViewDataBinding().setPokemon(pokemon);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, DetalhePokemonActivity.class);
-                intent.putExtra("chave_pokemon",pokemon);
-                mContext.startActivity(intent);
-            }
-        });
+            final PokemonDTO pokemon = mListaDePokemon.get(position);
+            holder.getViewDataBinding().setPokemon(pokemon);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, DetalhePokemonActivity.class);
+                    intent.putExtra("chave_pokemon",pokemon);
+                    mContext.startActivity(intent);
+                }
+            });
     }
 
     @Override
@@ -73,7 +82,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
             if(constraint == null || constraint.length() == 0){
                 listaFiltrada.addAll(mListaDePokemonFull);
             }else{
-                String filtroPadrao = constraint.toString().toLowerCase().trim();
+                String filtroPadrao = constraint.toString().toLowerCase().trim();;
                 for(PokemonDTO item : mListaDePokemonFull)
                 {
                     if (item.nome.toLowerCase().contains(filtroPadrao)  ){
@@ -83,6 +92,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
                         listaFiltrada.add(item);
                     }
                 }
+
             }
             FilterResults resultado = new FilterResults();
             resultado.values = listaFiltrada;
@@ -94,8 +104,9 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
             mListaDePokemon.clear();
             mListaDePokemon.addAll((List)results.values);
             notifyDataSetChanged();
-
         }
     };
+
+
 }
 

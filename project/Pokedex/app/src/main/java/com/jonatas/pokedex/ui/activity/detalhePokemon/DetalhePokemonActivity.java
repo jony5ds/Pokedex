@@ -65,4 +65,11 @@ public class DetalhePokemonActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){ //Botão BACK padrão do android
+        startActivity(new Intent(this, ListaPokemonActivty.class));
+        finishAffinity(); //Método para matar a activity e não deixa-lá indexada na pilhagem
+        return;
+    }
 }
