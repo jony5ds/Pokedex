@@ -1,16 +1,19 @@
-package com.jonatas.pokedex.ui.activity;
+package com.jonatas.pokedex.ui.activity.listaPokemon;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ListaPokemonActivityBinding;
 import com.jonatas.pokedex.dto.PokemonDTO;
 import com.jonatas.pokedex.model.Pokemon;
+import com.jonatas.pokedex.model.Tipo;
 import com.jonatas.pokedex.ui.adapter.PokemonAdapter;
 
 import java.util.ArrayList;
@@ -66,7 +69,9 @@ public class ListaPokemonActivty extends AppCompatActivity {
         }*/
 
         PokemonDTO pikachu = new PokemonDTO(1,"Pikachu").create();
+        pikachu.tipos.add(new Tipo("trovao"));
         PokemonDTO charmander = new PokemonDTO(2,"Charmander").create();
+        charmander.tipos.add(new Tipo("Fogo"));
 
         pokemons.add(pikachu);
         pokemons.add(charmander);
@@ -107,4 +112,23 @@ public class ListaPokemonActivty extends AppCompatActivity {
         mBinding.rvPokemon.setLayoutManager(linearLayoutManager);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent dadosRecebidos = getIntent();
+        String tipoRecebido = dadosRecebidos.getStringExtra("chave_tipo");
+
+        List<PokemonDTO> pokemonPorTipo = new ArrayList<>();
+        if (tipoRecebido != null) {
+            for (PokemonDTO pokemonTipo : mPokemonsDTO) {
+                for (int i = 0; i < pokemonTipo.tipos.size(); i++) {
+                    if (pokemonTipo.tipos.get(i).getNome().equals(tipoRecebido)) {
+                        pokemonPorTipo.add(pokemonTipo);
+                    }
+                }
+            }
+            configuraRecyclerView(pokemonPorTipo);
+        }
+    }
 }

@@ -8,10 +8,10 @@
         android:layout_margin="8dp">
 
         <TextView
-            android:id="@+id/habilidade_nome"
+            android:id="@+id/tipo_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Calda de ferro"
+            tools:text="Fogo"
             android:textSize="22sp"
             android:layout_marginBottom="8dp"/>
 

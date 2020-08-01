@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ItemListaPokemonBinding;
 import com.jonatas.pokedex.dto.PokemonDTO;
-import com.jonatas.pokedex.ui.activity.DetalhePokemonActivity;
-import com.jonatas.pokedex.ui.activity.ListaPokemonActivty;
+import com.jonatas.pokedex.ui.activity.detalhePokemon.DetalhePokemonActivity;
+import com.jonatas.pokedex.ui.activity.listaPokemon.ListaPokemonActivty;
 
 import java.util.ArrayList;
 import java.util.List;
