@@ -19,12 +19,11 @@ import com.jonatas.pokedex.ui.adapter.PokemonAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaPokemonActivty extends AppCompatActivity {
+public class ListaPokemonActivty extends AppCompatActivity implements IListaPokemonView {
 
     ListaPokemonActivityBinding mBinding;
-    List<Pokemon> mTodosPokemons = new ArrayList<>();
     PokemonAdapter mAdapter;
-    List<PokemonDTO> mPokemonsDTO;
+    ListaPokemonPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +31,8 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.lista_pokemon_activity);
-
-        criaPokemons();
-
-        mPokemonsDTO = obterPokemons();
-
-        configuraRecyclerView(mPokemonsDTO);
-
-        mBinding.searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popularListaDePokemon(mPokemonsDTO);
-            }
-        });
+        mPresenter = new ListaPokemonPresenter(this);
+        mPresenter.onCreate();
 
         mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -61,53 +49,6 @@ public class ListaPokemonActivty extends AppCompatActivity {
 
     }
 
-    private List<PokemonDTO> obterPokemons() {
-
-        List<PokemonDTO> pokemons = new ArrayList<>();
-
-        /*for(int i = 0;i < mTodosPokemons.size();i++)
-        {
-            PokemonDTO pokemonItem = new PokemonDTO();
-            Pokemon pokemon = mTodosPokemons.get(i);
-            pokemonItem.codigo = pokemon.getCodigo();
-            pokemonItem.nome = pokemon.getNome();
-            pokemonItem.numero = pokemon.obterCodigo();
-            pokemons.add(pokemonItem);
-        }*/
-
-        PokemonDTO pikachu = new PokemonDTO(1, "Pikachu").create();
-        pikachu.tipos.add(new Tipo("trovao"));
-        PokemonDTO charmander = new PokemonDTO(2, "Charmander").create();
-        charmander.tipos.add(new Tipo("Fogo"));
-
-        pokemons.add(pikachu);
-        pokemons.add(charmander);
-        return pokemons;
-    }
-
-    private void criaPokemons() {
-        Pokemon charmander = new Pokemon(001, "Charmander").create();
-        Pokemon bulbasauro = new Pokemon(002, "Bulbasauro").create();
-        Pokemon squirtle = new Pokemon(003, "Squirtle").create();
-        Pokemon pikachu = new Pokemon(004, "Pikachu").create();
-        Pokemon miu = new Pokemon(005, "Miu").create();
-
-        mTodosPokemons.add(charmander);
-        mTodosPokemons.add(bulbasauro);
-        mTodosPokemons.add(squirtle);
-        mTodosPokemons.add(pikachu);
-        mTodosPokemons.add(miu);
-    }
-
-
-    private void configuraRecyclerView(List<PokemonDTO> todosPokemons) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        configuracaoPadraoDaLista(linearLayoutManager);
-        popularListaDePokemon(todosPokemons);
-
-    }
-
-
     private void configuracaoPadraoDaLista(LinearLayoutManager linearLayoutManager) {
         mBinding.rvPokemon.setHasFixedSize(true);
         mBinding.rvPokemon.setNestedScrollingEnabled(false);
@@ -118,19 +59,18 @@ public class ListaPokemonActivty extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Intent dadosRecebidos = getIntent();
-        String tipoRecebido = dadosRecebidos.getStringExtra("chave_tipo");
+        usarPokemonsPorTipoNaLista();
+    }
 
-        List<PokemonDTO> pokemonPorTipo = new ArrayList<>();
+    private void usarPokemonsPorTipoNaLista() {
+        String tipoRecebido = obterDados();
+
         if (tipoRecebido != null) {
+
             mBinding.searchView.setVisibility(View.GONE);
-            for (PokemonDTO pokemonTipo : mPokemonsDTO) {
-                for (int i = 0; i < pokemonTipo.tipos.size(); i++) {
-                    if (pokemonTipo.tipos.get(i).getNome().equals(tipoRecebido)) {
-                        pokemonPorTipo.add(pokemonTipo);
-                    }
-                }
-            }
+
+            List<PokemonDTO> pokemonPorTipo = mPresenter
+                    .obterPokemonPorTipo(tipoRecebido);
 
             popularListaDePokemon(pokemonPorTipo);
         } else {
@@ -138,9 +78,22 @@ public class ListaPokemonActivty extends AppCompatActivity {
         }
     }
 
+    private String obterDados() {
+        Intent dadosRecebidos = getIntent();
+        return dadosRecebidos.getStringExtra("chave_tipo");
+    }
+
     private void popularListaDePokemon(List<PokemonDTO> todosPokemons) {
         mAdapter = new PokemonAdapter(todosPokemons, this);
         mBinding.rvPokemon.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void configurarRecyclerView(List<PokemonDTO> pokemons) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        configuracaoPadraoDaLista(linearLayoutManager);
+        popularListaDePokemon(pokemons);
     }
 
 }

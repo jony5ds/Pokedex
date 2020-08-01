@@ -19,39 +19,31 @@ import com.jonatas.pokedex.ui.activity.listaPokemon.ListaPokemonActivty;
 import com.jonatas.pokedex.ui.adapter.HabilidadesAdapter;
 import com.jonatas.pokedex.ui.adapter.TiposAdapter;
 
-public class DetalhePokemonActivity extends AppCompatActivity {
+public class DetalhePokemonActivity extends AppCompatActivity implements IDetalhePokemonView {
 
     DetalhePokemonActivityBinding mBinding;
-    private PokemonDTO mPokemon;
+    DetalhePokemonPresenter mPresenter;
+    PokemonDTO mPokemon;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.detalhe_pokemon_activity);
-        Intent dadosRecebidos = getIntent();
-        mPokemon = (PokemonDTO) dadosRecebidos.getSerializableExtra("chave_pokemon");
+
+        mPokemon = obterDadosPokemon();
+
+       mPresenter = new DetalhePokemonPresenter(this);
+       mPresenter.onCreate();
+
         mBinding.setPokemon(mPokemon);
 
-        //listando habilidades
-        HabilidadesAdapter habilidadesAdapter = new HabilidadesAdapter(this, mPokemon.habilidades);
-        mBinding.pokemonListHabilidades.setAdapter(habilidadesAdapter);
+        eventoTocarHabilidade();
 
-        //eventoClickHabilidade
-        mBinding.pokemonListHabilidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Habilidade habilidade = mPokemon.habilidades.get(position);
-                new AlertDialog.Builder(DetalhePokemonActivity.this)
-                        .setTitle(habilidade.getNome())
-                        .setMessage(habilidade.getDescricao())
-                        .show();
-            }
-        });
-        //Listando tipos
-        TiposAdapter tiposAdapter = new TiposAdapter(this, mPokemon.tipos);
-        mBinding.pokemonListTipos.setAdapter(tiposAdapter);
+        eventoTocarTipo();
+    }
 
-        //EventoClickTipo
+    private void eventoTocarTipo() {
         mBinding.pokemonListTipos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,10 +58,41 @@ public class DetalhePokemonActivity extends AppCompatActivity {
         });
     }
 
+    private void eventoTocarHabilidade() {
+        mBinding.pokemonListHabilidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Habilidade habilidade = mPokemon.habilidades.get(position);
+                new AlertDialog.Builder(DetalhePokemonActivity.this)
+                        .setTitle(habilidade.getNome())
+                        .setMessage(habilidade.getDescricao())
+                        .show();
+            }
+        });
+    }
+
+    private PokemonDTO obterDadosPokemon() {
+        Intent dadosRecebidos = getIntent();
+        return (PokemonDTO) dadosRecebidos.getSerializableExtra("chave_pokemon");
+    }
+
     @Override
-    public void onBackPressed(){ //Botão BACK padrão do android
+    public void onBackPressed(){
         startActivity(new Intent(this, ListaPokemonActivty.class));
-        finishAffinity(); //Método para matar a activity e não deixa-lá indexada na pilhagem
-        return;
+        finishAffinity();
+    }
+
+    @Override
+    public void listarHabilidades() {
+        HabilidadesAdapter habilidadesAdapter = new HabilidadesAdapter(this, mPokemon.habilidades);
+        mBinding.pokemonListHabilidades.setAdapter(habilidadesAdapter);
+
+    }
+
+    @Override
+    public void listarTipos() {
+        TiposAdapter tiposAdapter = new TiposAdapter(this, mPokemon.tipos);
+        mBinding.pokemonListTipos.setAdapter(tiposAdapter);
+
     }
 }
