@@ -11,7 +11,9 @@ public class Pokemon implements Serializable {
     private int ataque;
     private int defesa;
     private int velocidade;
-    private List<Habilidades> habilidades;
+    private int ataqueEspecial;
+    private int defesaEspecial;
+    private List<Habilidade> habilidades;
     private List<Tipo> tipos = new ArrayList<>();
     private List<Sprite> sprites = new ArrayList<>();
     private List<String> evolucoes = new ArrayList<>();
@@ -27,6 +29,22 @@ public class Pokemon implements Serializable {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getAtaqueEspecial() {
+        return ataqueEspecial;
+    }
+
+    public void setAtaqueEspecial(int ataqueEspecial) {
+        this.ataqueEspecial = ataqueEspecial;
+    }
+
+    public int getDefesaEspecial() {
+        return defesaEspecial;
+    }
+
+    public void setDefesaEspecial(int defesaEspecial) {
+        this.defesaEspecial = defesaEspecial;
     }
 
     public String getNome() {
@@ -69,11 +87,11 @@ public class Pokemon implements Serializable {
         this.velocidade = velocidade;
     }
 
-    public List<Habilidades> getHabilidades() {
+    public List<Habilidade> getHabilidades() {
         return habilidades;
     }
 
-    public void setHabilidades(List<Habilidades> habilidades) {
+    public void setHabilidades(List<Habilidade> habilidades) {
         this.habilidades = habilidades;
     }
 
