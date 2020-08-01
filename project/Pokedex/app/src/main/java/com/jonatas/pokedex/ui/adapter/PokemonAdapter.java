@@ -51,7 +51,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetalhePokemonActivity.class);
-               // intent.putExtra("chave_pokemon",pokemon);
+                intent.putExtra("chave_pokemon",pokemon);
                 mContext.startActivity(intent);
             }
         });

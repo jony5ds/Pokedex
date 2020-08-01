@@ -10,19 +10,20 @@ import androidx.databinding.DataBindingUtil;
 
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.DetalhePokemonActivityBinding;
+import com.jonatas.pokedex.dto.PokemonDTO;
 import com.jonatas.pokedex.model.Pokemon;
 
 public class DetalhePokemonActivity extends AppCompatActivity {
 
     DetalhePokemonActivityBinding mBinding;
-    private Pokemon mPokemon;
+    private PokemonDTO mPokemon;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.detalhe_pokemon_activity);
         Intent dadosRecebidos = getIntent();
-        mPokemon = (Pokemon) dadosRecebidos.getSerializableExtra("chave_pokemon");
+        mPokemon = (PokemonDTO) dadosRecebidos.getSerializableExtra("chave_pokemon");
         mBinding.setPokemon(mPokemon);
 
     }

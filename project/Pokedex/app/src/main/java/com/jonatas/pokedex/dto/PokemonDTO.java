@@ -1,8 +1,9 @@
 package com.jonatas.pokedex.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PokemonDTO {
+public class PokemonDTO implements Serializable {
     public String nome;
     public String numero;
     public long codigo;
