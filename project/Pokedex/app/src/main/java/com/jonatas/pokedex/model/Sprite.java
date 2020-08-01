@@ -1,6 +1,8 @@
 package com.jonatas.pokedex.model;
 
-public class Sprite {
+import java.io.Serializable;
+
+public class Sprite implements Serializable {
     private String nome;
     private String resourceUri;
 

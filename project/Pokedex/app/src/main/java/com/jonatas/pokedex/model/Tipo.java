@@ -1,6 +1,8 @@
 package com.jonatas.pokedex.model;
 
-public class Tipo {
+import java.io.Serializable;
+
+public class Tipo implements Serializable {
     private String nome;
 
     public Tipo(String nome) {
@@ -14,4 +16,10 @@ public class Tipo {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+
+    @Override public String toString() {
+        return "Tipo: " + nome;
+    }
 }
+
