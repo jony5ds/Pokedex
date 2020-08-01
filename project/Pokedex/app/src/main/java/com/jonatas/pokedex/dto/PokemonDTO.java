@@ -53,9 +53,6 @@ public class PokemonDTO implements Serializable {
         habilidades.add(pular);
         habilidades.add(socar);
 
-        Tipo tipo = new Tipo("Fogo");
-        tipos.add(tipo);
-
         return this;
     }
 
