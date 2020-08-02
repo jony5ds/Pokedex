@@ -1,13 +1,22 @@
 package com.jonatas.pokedex.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
-public class Sprite implements Serializable {
-
-    @SerializedName("front_default")
+public class Evolucao implements Serializable {
+    private String nome;
     private String resourceUri;
+
+    public Evolucao(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getResourceUri() {
         return resourceUri;
@@ -16,4 +25,5 @@ public class Sprite implements Serializable {
     public void setResourceUri(String resourceUri) {
         this.resourceUri = resourceUri;
     }
+
 }

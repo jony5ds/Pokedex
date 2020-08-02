@@ -1,22 +1,36 @@
 package com.jonatas.pokedex.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pokemon implements Serializable {
+    @SerializedName("id")
     private int codigo;
+    @SerializedName("name")
     private String nome;
+    @SerializedName("hp")
     private int hp;
+    @SerializedName("attack")
     private int ataque;
+    @SerializedName("defense")
     private int defesa;
+    @SerializedName("speed")
     private int velocidade;
+    @SerializedName("special-attack")
     private int ataqueEspecial;
+    @SerializedName("special-defense")
     private int defesaEspecial;
-    private List<Habilidade> habilidades;
+    @SerializedName("abilities")
+    private List<Habilidade> habilidades = new ArrayList<>();
+    @SerializedName("types")
     private List<Tipo> tipos = new ArrayList<>();
+    @SerializedName("sprites")
     private List<Sprite> sprites = new ArrayList<>();
-    private List<String> evolucoes = new ArrayList<>();
+    @SerializedName("species")
+    private List<Evolucao> evolucoes = new ArrayList<>();
 
     public Pokemon(int codigo, String nomePokemon) {
         this.codigo = codigo;
@@ -111,11 +125,11 @@ public class Pokemon implements Serializable {
         this.sprites = sprites;
     }
 
-    public List<String> getEvolucoes() {
+    public List<Evolucao> getEvolucoes() {
         return evolucoes;
     }
 
-    public void setEvolucoes(List<String> evolucoes) {
+    public void setEvolucoes(List<Evolucao> evolucoes) {
         this.evolucoes = evolucoes;
     }
 
@@ -126,10 +140,20 @@ public class Pokemon implements Serializable {
         tipos = new ArrayList<>();
         this.ataque = 30;
         this.defesa = 10;
-        this.evolucoes.add("Chaarlizard");
-        this.evolucoes.add("Chaminer");
         this.hp = 100;
 
         return this;
+    }
+
+    public String tiposToString() {
+
+        String types = "";
+        for (int i = 0; i < tipos.size(); i++) {
+            if(i > 0)
+                types += ", ";
+            types += tipos.get(i).getNome();
+        }
+
+        return types;
     }
 }

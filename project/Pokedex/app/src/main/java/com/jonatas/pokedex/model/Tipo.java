@@ -1,9 +1,13 @@
 package com.jonatas.pokedex.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Tipo implements Serializable {
+    @SerializedName("nome")
     private String nome;
+
 
     public Tipo(String nome) {
         this.nome = nome;

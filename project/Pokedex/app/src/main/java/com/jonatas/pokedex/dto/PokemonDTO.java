@@ -1,5 +1,6 @@
 package com.jonatas.pokedex.dto;
 
+import com.jonatas.pokedex.model.Evolucao;
 import com.jonatas.pokedex.model.Habilidade;
 import com.jonatas.pokedex.model.Sprite;
 import com.jonatas.pokedex.model.Tipo;
@@ -20,7 +21,7 @@ public class PokemonDTO implements Serializable {
     public List<Habilidade> habilidades;
     public List<Tipo> tipos = new ArrayList<>();
     public List<Sprite> sprites = new ArrayList<>();
-    public List<String> evolucoes = new ArrayList<>();
+    public List<Evolucao> evolucoes = new ArrayList<>();
 
     public PokemonDTO(int codigo, String nome) {
         this.codigo = codigo;
@@ -69,8 +70,6 @@ public class PokemonDTO implements Serializable {
         tipos = new ArrayList<>();
         this.ataque = 30;
         this.defesa = 10;
-        this.evolucoes.add("Chaarlizard");
-        this.evolucoes.add("Chaminer");
         this.hp = 100;
         this.ataqueEspecial = 120;
         this.defesaEspecial = 80;
