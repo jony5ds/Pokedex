@@ -3,36 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/pokemon_nome"
         app:layout_constraintTop_toBottomOf="@+id/pokemon_nome">
 
+        <ImageView
+            android:id="@+id/pokemon_imagem"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="127dp" />
         <TextView
             android:id="@+id/pokemon_nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
             android:text="@{pokemon.nome}"
-            android:textSize="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:layout_editor_absoluteX="134dp"
             tools:text="Pokemon" />
 
         <TextView
             android:id="@+id/pokemon_codigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="10dp"
             android:text="@{pokemon.getCodigo()}"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_nome"
+            tools:layout_editor_absoluteX="87dp"
             tools:text="001" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
     <data>
         <variable
             name="pokemon"

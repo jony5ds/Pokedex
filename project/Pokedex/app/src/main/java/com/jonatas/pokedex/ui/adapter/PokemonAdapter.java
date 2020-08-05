@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ItemListaPokemonBinding;
 import com.jonatas.pokedex.dto.PokemonDTO;
@@ -56,6 +58,13 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> impl
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
             final PokemonDTO pokemon = mListaDePokemon.get(position);
             holder.getViewDataBinding().setPokemon(pokemon);
+
+        Glide.with(mContext)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + pokemon.getCodigo() + ".png")
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mBinding.pokemonImagem);
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

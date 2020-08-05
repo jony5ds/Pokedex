@@ -15,7 +15,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListaPokemonPresenter {
-   private List<PokemonDTO> mPokemonsDTO;
    private IListaPokemonView mView;
 
     public ListaPokemonPresenter(IListaPokemonView view) {
@@ -24,12 +23,10 @@ public class ListaPokemonPresenter {
 
     public void onCreate()
     {
-        mPokemonsDTO = obterPokemons();
-        mView.configurarRecyclerView(mPokemonsDTO);
 
     }
 
-    private List<PokemonDTO> obterPokemons() {
+    /*private List<PokemonDTO> obterPokemons() {
 
         final List<Pokemon> pokemons = new ArrayList<>();
 
@@ -60,7 +57,7 @@ public class ListaPokemonPresenter {
                 public void onFailure(Call<Pokemon> call, Throwable t) {
                 }
             });
-        }
+        }*/
 
         /*for(int i = 0;i < mTodosPokemons.size();i++)
         {
@@ -70,7 +67,7 @@ public class ListaPokemonPresenter {
             pokemonItem.nome = pokemon.getNome();
             pokemonItem.numero = pokemon.obterCodigo();
             pokemons.add(pokemonItem);
-        }*/
+        }
 
         List<PokemonDTO> pokemonsDTO = new ArrayList<>();
 
@@ -83,12 +80,12 @@ public class ListaPokemonPresenter {
         pokemonsDTO.add(charmander);
 
         return pokemonsDTO;
-    }
+    } */
 
-    public List<PokemonDTO> obterPokemonPorTipo(String tipoRecebido)
+    public List<PokemonDTO> obterPokemonPorTipo(String tipoRecebido,List<PokemonDTO> pokemons)
     {
         List<PokemonDTO> pokemonPorTipo = new ArrayList<>();
-        for (PokemonDTO pokemonTipo : mPokemonsDTO) {
+        for (PokemonDTO pokemonTipo : pokemons) {
             for (int i = 0; i < pokemonTipo.tipos.size(); i++) {
                 if (pokemonTipo.tipos.get(i).getNome().equals(tipoRecebido)) {
                     pokemonPorTipo.add(pokemonTipo);

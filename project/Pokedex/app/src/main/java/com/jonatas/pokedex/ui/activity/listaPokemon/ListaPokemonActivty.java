@@ -1,9 +1,12 @@
 package com.jonatas.pokedex.ui.activity.listaPokemon;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,17 +16,30 @@ import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.ListaPokemonActivityBinding;
 import com.jonatas.pokedex.dto.PokemonDTO;
 import com.jonatas.pokedex.model.Pokemon;
-import com.jonatas.pokedex.model.Tipo;
+import com.jonatas.pokedex.model.PokemonRequest;
+import com.jonatas.pokedex.service.ApiInterface;
+import com.jonatas.pokedex.service.RetrofitConfig;
 import com.jonatas.pokedex.ui.adapter.PokemonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class ListaPokemonActivty extends AppCompatActivity implements IListaPokemonView {
 
-    ListaPokemonActivityBinding mBinding;
-    PokemonAdapter mAdapter;
-    ListaPokemonPresenter mPresenter;
+    private ListaPokemonActivityBinding mBinding;
+    private PokemonAdapter mAdapter;
+    private ListaPokemonPresenter mPresenter;
+    private Retrofit mRetrofit;
+    private static final String TAG = "POKEDEX";
+    private int offset;
+    private boolean podeCarregar;
+    private GridLayoutManager mGridLayoutManager;
+    List<PokemonDTO> listPokemonDTO = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +63,69 @@ public class ListaPokemonActivty extends AppCompatActivity implements IListaPoke
             }
         });
 
+        mBinding.rvPokemon.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0)
+                {
+                    int itemVisivel = mGridLayoutManager.getChildCount();
+                    int totalItemCount = mGridLayoutManager.getItemCount();
+                    int pastVisibleItens = mGridLayoutManager.findFirstVisibleItemPosition();
+
+                    if (podeCarregar)
+                    {
+                        if ((itemVisivel + pastVisibleItens) >= totalItemCount){
+                            podeCarregar = false;
+                            offset+= 20;
+                            getDados(offset);
+                        }
+                    }
+
+                }
+            }
+        });
+        mRetrofit = RetrofitConfig.getClient();
+
+        podeCarregar = true;
+        offset = 0;
+        getDados(offset);
     }
 
-    private void configuracaoPadraoDaLista(LinearLayoutManager linearLayoutManager) {
+    private void getDados(int offset)
+    {
+        ApiInterface service = mRetrofit.create(ApiInterface.class);
+        Call<PokemonRequest> pokemonRequestCall = service.getPokemon(40,offset);
+        pokemonRequestCall.enqueue(new Callback<PokemonRequest>() {
+            @Override
+            public void onResponse(Call<PokemonRequest> call, Response<PokemonRequest> response) {
+                podeCarregar = true;
+                if (response.isSuccessful())
+                {
+                    PokemonRequest pokemonRequest = response.body();
+                    ArrayList<Pokemon> listaPokemon = pokemonRequest.getResults();
+
+                    for (int i = 0; i < listaPokemon.size(); i++)
+                    {
+                        PokemonDTO pokemonDTO = new PokemonDTO(listaPokemon.get(i).getCodigo(),
+                                listaPokemon.get(i).getName());
+
+                        listPokemonDTO.add(pokemonDTO);
+
+                    }
+
+                    configurarRecyclerView(listPokemonDTO);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PokemonRequest> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void configuracaoPadraoDaLista(GridLayoutManager linearLayoutManager) {
         mBinding.rvPokemon.setHasFixedSize(true);
         mBinding.rvPokemon.setNestedScrollingEnabled(false);
         mBinding.rvPokemon.setLayoutManager(linearLayoutManager);
@@ -70,7 +146,7 @@ public class ListaPokemonActivty extends AppCompatActivity implements IListaPoke
             mBinding.searchView.setVisibility(View.GONE);
 
             List<PokemonDTO> pokemonPorTipo = mPresenter
-                    .obterPokemonPorTipo(tipoRecebido);
+                    .obterPokemonPorTipo(tipoRecebido,listPokemonDTO);
 
             popularListaDePokemon(pokemonPorTipo);
         } else {
@@ -91,9 +167,10 @@ public class ListaPokemonActivty extends AppCompatActivity implements IListaPoke
 
     @Override
     public void configurarRecyclerView(List<PokemonDTO> pokemons) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        configuracaoPadraoDaLista(linearLayoutManager);
+         mGridLayoutManager = new GridLayoutManager(this,2);
+        configuracaoPadraoDaLista(mGridLayoutManager);
         popularListaDePokemon(pokemons);
     }
+
 
 }

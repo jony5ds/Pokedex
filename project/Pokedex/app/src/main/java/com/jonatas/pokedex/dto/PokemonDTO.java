@@ -28,6 +28,10 @@ public class PokemonDTO implements Serializable {
         this.nome = nome;
     }
 
+    public PokemonDTO(String name) {
+        this.nome = name;
+    }
+
     public String getCodigo()
     {
         return String.valueOf(codigo);

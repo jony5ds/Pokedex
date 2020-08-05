@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import androidx.databinding.DataBindingUtil;
-
 import com.jonatas.pokedex.R;
 import com.jonatas.pokedex.databinding.HabilidadeItemBinding;
 import com.jonatas.pokedex.model.Habilidade;
@@ -25,7 +23,6 @@ public class HabilidadesAdapter extends BaseAdapter {
         this.mContext = context;
         this.mHabilidades = mHabilidades;
     }
-
 
     @Override
     public int getCount() {
@@ -53,7 +50,6 @@ public class HabilidadesAdapter extends BaseAdapter {
         Habilidade habilidade = mHabilidades.get(position);
 
         mBinding.habilidadeNome.setText(habilidade.getNome());
-
 
         return mBinding.getRoot();
     }
